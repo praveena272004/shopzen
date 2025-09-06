@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* App container */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card hover effect */
+.MuiCard-root {
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.MuiCard-root:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Main content wrapper */
+.app > main {
+  flex: 1;  
+}
+
+/* Autofill fix for dark theme */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover, 
+textarea:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 100px #3A3A3A inset !important;
+  -webkit-text-fill-color: #E0E0E0 !important;
+  caret-color: #E0E0E0 !important;
+  border-radius: 8px;
+}
+
+/* Material UI button colors */
+.MuiButton-containedPrimary {
+  background-color: #1976d2;
+}
+
+.MuiButton-containedSecondary {
+  background-color: #ff9800;
+}
+
+/* Cart badge */
+.MuiBadge-badge {
+  background-color: #ff9800 !important;
+}
+
+/* Footer styling (scoped) */
+.footer {
+  background-color: #2C2C2C;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: auto;
+}
+
+/* Responsive Grid adjustments */
+@media (max-width: 1200px) {
+  .content-grid {
+    justify-content: center;
+  }
+}
+
+/* Product Card responsiveness */
+@media (max-width: 900px) {
+  .product-card {
+    max-width: 200px;
+    margin: 1rem;
+  }
+
+  .app-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .product-card {
+    max-width: 150px;
+    margin: 0.5rem;
+  }
+
+  .product-img {
+    height: 200px !important;
+  }
+
+  /* Mobile typography adjustments for content */
+  .content-heading-h4 {
+    font-size: 1.5rem;
+  }
+  .content-heading-h5 {
+    font-size: 1.2rem;
+  }
+  .content-heading-h6 {
+    font-size: 1rem;
+  }
+
+  .app-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .footer {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+}

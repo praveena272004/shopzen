@@ -79,7 +79,7 @@ const OrderSummary = () => {
       </Typography>
 
       {items.length === 0 && (
-        <Typography sx={{ color: "#E0E0E0" }}>
+        <Typography sx={{ color: "#241b1bff" }}>
           No items in your order.
         </Typography>
       )}

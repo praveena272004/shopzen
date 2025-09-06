@@ -1,10 +1,10 @@
-# ShopZen
+# 🛒 ShopZen
 
 A modern e-commerce web application built with **React**, **Redux Toolkit**, and **Material-UI**, featuring a shopping cart, product details, order summary, and feedback form.
 
 ---
 
-## 🚀 Features
+## ✨ Features
 
 - Browse products fetched from [Fake Store API](https://fakestoreapi.com/)
 - View product details and images

@@ -23,7 +23,7 @@ A modern e-commerce web application built with **React**, **Redux Toolkit**, and
 - **Material-UI**
 - **SweetAlert2** for notifications
 - **React Hook Form + Yup** for form validation
-- **CSS / SCSS** for styling
+- **CSS** for styling
 
 ---
 

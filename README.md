@@ -6,7 +6,7 @@ A modern e-commerce web application built with **React**, **Redux Toolkit**, and
 
 ## ✨ Features
 
-- Browse products fetched from [Fake Store API](https://fakestoreapi.com/)
+- Browse products from a local JSON file (cached in localStorage for faster loading 🚀)
 - View product details and images
 - Add/remove items from the cart
 - Place orders with a summary form

@@ -7,6 +7,7 @@ import {
   Box,
   TextField,
   Paper,
+  CircularProgress,
 } from "@mui/material";
 import { clearCart } from "../redux/cartSlice.js";
 import Swal from "sweetalert2";
@@ -18,6 +19,7 @@ const OrderSummary = () => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({ name: "", address: "", phone: "" });
+  const [imgLoading, setImgLoading] = useState({}); // track loading state per image
 
   const total = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -31,13 +33,11 @@ const OrderSummary = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    // Validation
     if (!form.name.trim() || !form.address.trim() || !form.phone.trim()) {
       Swal.fire("Oops!", "Please fill in all details.", "warning");
       return;
     }
 
-    // Phone number must be exactly 10 digits
     if (!/^\d{10}$/.test(form.phone)) {
       Swal.fire(
         "Invalid Phone",
@@ -90,6 +90,7 @@ const OrderSummary = () => {
           sx={{
             display: "flex",
             flexWrap: "wrap",
+            alignItems: "center",
             justifyContent: "space-between",
             mb: 2,
             p: 2,
@@ -97,9 +98,44 @@ const OrderSummary = () => {
             borderRadius: 2,
             backgroundColor: "#3A3A3A",
             color: "#E0E0E0",
-            alignItems: "center",
+            gap: 2,
           }}
         >
+          {/* Product Thumbnail with Lazy Loading */}
+          <Box
+            sx={{
+              width: 60,
+              height: 60,
+              backgroundColor: "#2C2C2C",
+              borderRadius: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {imgLoading[item.id] && (
+              <CircularProgress size={20} sx={{ color: "#FF6F61" }} />
+            )}
+            <Box
+              component="img"
+              src={item.image}
+              alt={item.title}
+              loading="lazy"
+              onLoad={() =>
+                setImgLoading((prev) => ({ ...prev, [item.id]: false }))
+              }
+              onError={() =>
+                setImgLoading((prev) => ({ ...prev, [item.id]: false }))
+              }
+              sx={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+                objectFit: "contain",
+                display: imgLoading[item.id] ? "none" : "block",
+              }}
+            />
+          </Box>
+
           <Typography sx={{ flex: { xs: "100%", sm: 2 } }}>
             {item.title}
           </Typography>
@@ -127,6 +163,7 @@ const OrderSummary = () => {
               sx={{ mt: 3, p: 3, backgroundColor: "#3A3A3A", maxWidth: 500 }}
             >
               <form onSubmit={handleFormSubmit}>
+                {/* Name Field */}
                 <TextField
                   label="Name"
                   name="name"
@@ -136,27 +173,22 @@ const OrderSummary = () => {
                   margin="normal"
                   required
                   InputProps={{
-                    style: {
-                      backgroundColor: "#3A3A3A", 
-                      color: "#E0E0E0", 
-                    },
+                    style: { backgroundColor: "#3A3A3A", color: "#E0E0E0" },
                   }}
                   InputLabelProps={{
-                    style: { color: "#B0B0B0" }, 
+                    style: { color: "#B0B0B0" },
                   }}
                   sx={{
                     "& .MuiOutlinedInput-root": {
-                      backgroundColor: "#2C2C2C",
-                      color: "#E0E0E0",
                       "& fieldset": { borderColor: "#555" },
                       "&:hover fieldset": { borderColor: "#FF6F61" },
                       "&.Mui-focused fieldset": { borderColor: "#FF6F61" },
                     },
-                    "& .MuiInputLabel-root": { color: "#aaa" },
                     "& .MuiInputLabel-root.Mui-focused": { color: "#FF6F61" },
                   }}
                 />
 
+                {/* Address Field */}
                 <TextField
                   label="Address"
                   name="address"
@@ -166,26 +198,22 @@ const OrderSummary = () => {
                   margin="normal"
                   required
                   InputProps={{
-                    style: {
-                      backgroundColor: "#3A3A3A", 
-                      color: "#E0E0E0", 
-                    },
+                    style: { backgroundColor: "#3A3A3A", color: "#E0E0E0" },
                   }}
                   InputLabelProps={{
-                    style: { color: "#B0B0B0" }, 
+                    style: { color: "#B0B0B0" },
                   }}
                   sx={{
                     "& .MuiOutlinedInput-root": {
-                      backgroundColor: "#2C2C2C",
-                      color: "#E0E0E0",
                       "& fieldset": { borderColor: "#555" },
                       "&:hover fieldset": { borderColor: "#FF6F61" },
                       "&.Mui-focused fieldset": { borderColor: "#FF6F61" },
                     },
-                    "& .MuiInputLabel-root": { color: "#aaa" },
                     "& .MuiInputLabel-root.Mui-focused": { color: "#FF6F61" },
                   }}
                 />
+
+                {/* Phone Field */}
                 <TextField
                   label="Phone Number"
                   name="phone"
@@ -196,26 +224,21 @@ const OrderSummary = () => {
                   required
                   inputProps={{ maxLength: 10 }}
                   InputProps={{
-                    style: {
-                      backgroundColor: "#3A3A3A", 
-                      color: "#E0E0E0", 
-                    },
+                    style: { backgroundColor: "#3A3A3A", color: "#E0E0E0" },
                   }}
                   InputLabelProps={{
-                    style: { color: "#B0B0B0" }, 
+                    style: { color: "#B0B0B0" },
                   }}
                   sx={{
                     "& .MuiOutlinedInput-root": {
-                      backgroundColor: "#2C2C2C",
-                      color: "#E0E0E0",
                       "& fieldset": { borderColor: "#555" },
                       "&:hover fieldset": { borderColor: "#FF6F61" },
                       "&.Mui-focused fieldset": { borderColor: "#FF6F61" },
                     },
-                    "& .MuiInputLabel-root": { color: "#aaa" },
                     "& .MuiInputLabel-root.Mui-focused": { color: "#FF6F61" },
                   }}
                 />
+
                 <center>
                   <Button
                     type="submit"
@@ -224,9 +247,9 @@ const OrderSummary = () => {
                       mt: 2,
                       backgroundColor: "#FF6F61",
                       color: "#FFFFFF",
-                      fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" }, 
-                      px: { xs: 1, sm: 2, md: 3 }, 
-                      py: { xs: 0.4, sm: 0.6, md: 0.8 }, 
+                      fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+                      px: { xs: 1, sm: 2, md: 3 },
+                      py: { xs: 0.4, sm: 0.6, md: 0.8 },
                       "&:hover": { backgroundColor: "#e65a50" },
                     }}
                   >

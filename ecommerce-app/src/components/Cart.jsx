@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Typography, Button, Box } from "@mui/material";
 import { removeFromCart, clearCart } from "../redux/cartSlice.js";
@@ -9,7 +9,7 @@ const Cart = () => {
   const items = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [imgLoading, setImgLoading] = useState({});
   const handleRemove = (id) => {
     dispatch(removeFromCart(id));
     Swal.fire({
@@ -61,7 +61,7 @@ const Cart = () => {
           variant="h5"
           sx={{
             color: "#302a2aff",
-            fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.8rem" }, 
+            fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.8rem" },
           }}
         >
           Your cart is empty.
@@ -73,16 +73,52 @@ const Cart = () => {
           sx={{
             display: "flex",
             flexWrap: "wrap",
+            alignItems: "center",
             justifyContent: "space-between",
             mb: 2,
             p: 2,
             border: "1px solid #444444",
             borderRadius: 2,
             backgroundColor: "#3A3A3A",
-            alignItems: "center",
             color: "#E0E0E0",
+            gap: 2,
           }}
         >
+          {/* Product Thumbnail with Lazy Loading */}
+          <Box
+            sx={{
+              width: 60,
+              height: 60,
+              backgroundColor: "#2C2C2C",
+              borderRadius: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {imgLoading[item.id] && (
+              <CircularProgress size={20} sx={{ color: "#FF6F61" }} />
+            )}
+            <Box
+              component="img"
+              src={item.image}
+              alt={item.title}
+              loading="lazy"
+              onLoad={() =>
+                setImgLoading((prev) => ({ ...prev, [item.id]: false }))
+              }
+              onError={() =>
+                setImgLoading((prev) => ({ ...prev, [item.id]: false }))
+              }
+              sx={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+                objectFit: "contain",
+                display: imgLoading[item.id] ? "none" : "block",
+              }}
+            />
+          </Box>
+
           <Typography sx={{ flex: { xs: "100%", sm: 2 } }}>
             {item.title}
           </Typography>
@@ -97,9 +133,9 @@ const Cart = () => {
             color="error"
             sx={{
               mt: { xs: 1, sm: 0 },
-              fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" }, 
-              px: { xs: 1, sm: 2, md: 3 }, 
-              py: { xs: 0.4, sm: 0.6, md: 0.8 }, 
+              fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+              px: { xs: 1, sm: 2, md: 3 },
+              py: { xs: 0.4, sm: 0.6, md: 0.8 },
             }}
             onClick={() => handleRemove(item.id)}
           >
@@ -120,10 +156,10 @@ const Cart = () => {
             variant="contained"
             sx={{
               mt: 2,
-              backgroundColor: "#FF6F61", 
+              backgroundColor: "#FF6F61",
               color: "#FFFFFF",
-              fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" }, 
-              px: { xs: 1, sm: 2, md: 3 }, 
+              fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+              px: { xs: 1, sm: 2, md: 3 },
               py: { xs: 0.4, sm: 0.6, md: 0.8 },
               "&:hover": { backgroundColor: "#e65a50" },
             }}
@@ -137,11 +173,11 @@ const Cart = () => {
             sx={{
               mt: 2,
               ml: 2,
-              color: "#FF6F61", 
+              color: "#FF6F61",
               borderColor: "#FF6F61",
-              fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" }, 
-              px: { xs: 1, sm: 2, md: 3 }, 
-              py: { xs: 0.4, sm: 0.6, md: 0.8 }, 
+              fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+              px: { xs: 1, sm: 2, md: 3 },
+              py: { xs: 0.4, sm: 0.6, md: 0.8 },
               "&:hover": {
                 backgroundColor: "#FF6F61",
                 color: "#FFFFFF",

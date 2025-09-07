@@ -7,19 +7,17 @@ const ProductList = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // First check localStorage
     const savedProducts = localStorage.getItem("products");
 
     if (savedProducts) {
       setProducts(JSON.parse(savedProducts));
       setLoading(false);
     } else {
-      // Fetch from local JSON file
       fetch("/data/products.json")
         .then((res) => res.json())
         .then((data) => {
           setProducts(data);
-          localStorage.setItem("products", JSON.stringify(data)); // cache in localStorage
+          localStorage.setItem("products", JSON.stringify(data)); 
           setLoading(false);
         })
         .catch((err) => {

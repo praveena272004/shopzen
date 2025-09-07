@@ -17,9 +17,22 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${id}`)
-      .then((res) => res.json())
-      .then((data) => setProduct(data));
+    const savedProducts = localStorage.getItem("products");
+
+    if (savedProducts) {
+      const products = JSON.parse(savedProducts);
+      const found = products.find((item) => item.id === parseInt(id));
+      setProduct(found);
+    } else {
+      fetch("/data/products.json")
+        .then((res) => res.json())
+        .then((data) => {
+          localStorage.setItem("products", JSON.stringify(data));
+          const found = data.find((item) => item.id === parseInt(id));
+          setProduct(found);
+        })
+        .catch((err) => console.error("Error loading product:", err));
+    }
   }, [id]);
 
   const handleAdd = () => {
@@ -67,7 +80,7 @@ const ProductDetails = () => {
         sx={{
           flex: { xs: "100%", sm: 2 },
           minWidth: 250,
-          backgroundColor: "#3A3A3A", 
+          backgroundColor: "#3A3A3A",
           padding: 2,
           borderRadius: 2,
         }}
@@ -88,9 +101,9 @@ const ProductDetails = () => {
           variant="h6"
           gutterBottom
           sx={{
-            color: "#FF6F61", 
+            color: "#FF6F61",
             fontWeight: "bold",
-            fontSize: { xs: "1rem", sm: "1.2rem", md: "1.4rem" }, 
+            fontSize: { xs: "1rem", sm: "1.2rem", md: "1.4rem" },
           }}
         >
           ${product.price}
@@ -101,8 +114,8 @@ const ProductDetails = () => {
           paragraph
           sx={{
             color: "#E0E0E0",
-            fontSize: { xs: "0.85rem", sm: "0.95rem", md: "1rem" }, 
-            lineHeight: { xs: 1.4, sm: 1.5, md: 1.6 }, 
+            fontSize: { xs: "0.85rem", sm: "0.95rem", md: "1rem" },
+            lineHeight: { xs: 1.4, sm: 1.5, md: 1.6 },
           }}
         >
           {product.description}
@@ -113,12 +126,12 @@ const ProductDetails = () => {
             variant="contained"
             onClick={handleAdd}
             sx={{
-              backgroundColor: "#FF6F61", 
-              color: "#FFFFFF", 
+              backgroundColor: "#FF6F61",
+              color: "#FFFFFF",
               "&:hover": {
-                backgroundColor: "#e65a50", 
+                backgroundColor: "#e65a50",
               },
-              fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" }, 
+              fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
               px: { xs: 1, sm: 2, md: 3 },
               py: { xs: 0.4, sm: 0.6, md: 0.8 },
             }}

@@ -55,6 +55,7 @@ const ProductCard = ({ product }) => {
           padding: "10px",
           backgroundColor: "#3A3A3A",
         }}
+        loading="lazy"
       />
       <CardContent sx={{ backgroundColor: "#3A3A3A", color: "#E0E0E0" }}>
         <Typography

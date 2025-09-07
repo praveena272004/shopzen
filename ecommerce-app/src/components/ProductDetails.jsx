@@ -17,22 +17,14 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const savedProducts = localStorage.getItem("products");
-
-    if (savedProducts) {
-      const products = JSON.parse(savedProducts);
-      const found = products.find((item) => item.id === parseInt(id));
-      setProduct(found);
-    } else {
-      fetch("/data/products.json")
-        .then((res) => res.json())
-        .then((data) => {
-          localStorage.setItem("products", JSON.stringify(data));
-          const found = data.find((item) => item.id === parseInt(id));
-          setProduct(found);
-        })
-        .catch((err) => console.error("Error loading product:", err));
-    }
+    fetch("/data/products.json?_v=" + Date.now()) 
+      .then((res) => res.json())
+      .then((data) => {
+        localStorage.setItem("products", JSON.stringify(data));
+        const found = data.find((item) => item.id === parseInt(id));
+        setProduct(found);
+      })
+      .catch((err) => console.error("Error loading product:", err));
   }, [id]);
 
   const handleAdd = () => {

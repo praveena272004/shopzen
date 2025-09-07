@@ -7,33 +7,32 @@ const ProductList = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedProducts = localStorage.getItem("products");
-
-    if (savedProducts) {
-      setProducts(JSON.parse(savedProducts));
-      setLoading(false);
-    } else {
-      fetch("/data/products.json")
+    const fetchProducts = () => {
+      fetch("/data/products.json?_v=" + Date.now()) 
         .then((res) => res.json())
         .then((data) => {
+          localStorage.setItem("products", JSON.stringify(data));
           setProducts(data);
-          localStorage.setItem("products", JSON.stringify(data)); 
           setLoading(false);
         })
         .catch((err) => {
           console.error("Error loading products:", err);
+          const savedProducts = localStorage.getItem("products");
+          if (savedProducts) {
+            setProducts(JSON.parse(savedProducts));
+          }
           setLoading(false);
         });
-    }
+    };
+
+    fetchProducts();
   }, []);
 
   if (loading)
     return <CircularProgress sx={{ display: "block", mx: "auto", mt: 5 }} />;
 
   return (
-    <Box
-      sx={{ px: { xs: 1, sm: 3, md: 5 }, py: 5, backgroundColor: "#f5f5f5" }}
-    >
+    <Box sx={{ px: { xs: 1, sm: 3, md: 5 }, py: 5, backgroundColor: "#f5f5f5" }}>
       <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} justifyContent="center">
         {products.map((product) => (
           <Grid key={product.id} display="flex" justifyContent="center">

@@ -60,19 +60,19 @@ Check out the live version of the app here: [ShopZen](https://shopzen-sz.netlify
 📸 Screenshots
 
 🛍️ Product List
-![Product List](public/screenshots/product-list.png)
+![Product List](/ecommerce-app/public/screenshots/product-list.png)
 
 📦 Product Details
-![Product Details](public/screenshots/product-details.png)
+![Product Details](/ecommerce-app/public/screenshots/product-details.png)
 
 🛒 Cart
-![Cart](public/screenshots/cart.png)
+![Cart](/ecommerce-app/public/screenshots/cart.png)
 
 ✔️ Order Summary
-![Order Summary](public/screenshots/order-summary.png)
+![Order Summary](/ecommerce-app/public/screenshots/order-summary.png)
 
 💬 Feedback Form
-![Feedback Form](public/screenshots/feedback.png)
+![Feedback Form](/ecommerce-app/public/screenshots/feedback.png)
 
 ---
 

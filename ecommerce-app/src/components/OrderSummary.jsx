@@ -19,7 +19,7 @@ const OrderSummary = () => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({ name: "", address: "", phone: "" });
-  const [imgLoading, setImgLoading] = useState({}); // track loading state per image
+  const [imgLoading, setImgLoading] = useState({}); 
 
   const total = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -101,7 +101,7 @@ const OrderSummary = () => {
             gap: 2,
           }}
         >
-          {/* Product Thumbnail with Lazy Loading */}
+          {/* Product */}
           <Box
             sx={{
               width: 60,

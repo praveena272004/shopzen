@@ -84,7 +84,7 @@ const Cart = () => {
             gap: 2,
           }}
         >
-          {/* Product Thumbnail with Lazy Loading */}
+          {/* Product */}
           <Box
             sx={{
               width: 60,

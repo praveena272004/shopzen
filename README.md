@@ -60,18 +60,23 @@ Check out the live version of the app here: [ShopZen](https://shopzen-sz.netlify
 📸 Screenshots
 
 🛍️ Product List
+
 ![Product List](/ecommerce-app/public/screenshots/product-list.png)
 
 📦 Product Details
+
 ![Product Details](/ecommerce-app/public/screenshots/product-details.png)
 
 🛒 Cart
+
 ![Cart](/ecommerce-app/public/screenshots/cart.png)
 
 ✔️ Order Summary
+
 ![Order Summary](/ecommerce-app/public/screenshots/order-summary.png)
 
 💬 Feedback Form
+
 ![Feedback Form](/ecommerce-app/public/screenshots/feedback.png)
 
 ---
@@ -82,6 +87,7 @@ Check out the live version of the app here: [ShopZen](https://shopzen-sz.netlify
 - Enable product categories & filters 🛍️
 - Create an admin dashboard 📊
 - Add dark/light theme toggle 🌙☀️
+
 ---
 
 ## 📜 License
